@@ -27,3 +27,9 @@ python manage.py createsuperuser
 
 #crear app de djando
 python manage.py startapp gitHub
+
+#Modificar setting para agregar la ruta del app
+
+#instalar requests
+pip install requests 
+
