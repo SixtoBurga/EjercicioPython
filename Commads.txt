@@ -1,0 +1,11 @@
+#version de python instalada
+python -V
+
+#crear environment
+python3 -m venv envBasico
+
+#activar environment
+call envBasico\Scripts\activate.bat
+
+#install django
+pip install django
