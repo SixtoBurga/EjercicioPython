@@ -9,3 +9,21 @@ call envBasico\Scripts\activate.bat
 
 #install django
 pip install django
+
+#listar modulos instalados
+pip list
+
+#crear proyecto django
+django-admin startproject proyectoFinal
+
+#Ejecutar aplicacion djando(en la raíz del manage.py)
+python manage.py runserver
+
+$ORM migrate
+python manage.py migrate
+
+#crear superusuario al admin(user:admim, psw:admin)
+python manage.py createsuperuser
+
+#crear app de djando
+python manage.py startapp gitHub
