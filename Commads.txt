@@ -20,6 +20,7 @@ django-admin startproject proyectoFinal
 python manage.py runserver
 
 $ORM migrate
+python manage.py makemigrations
 python manage.py migrate
 
 #crear superusuario al admin(user:admim, psw:admin)
@@ -33,3 +34,14 @@ python manage.py startapp gitHub
 #instalar requests
 pip install requests 
 
+
+
+
+---------------------------------------------------------------
+Dayli commands
+
+- call envBasico\Scripts\activate.bat
+- cd proyectoFinal
+- python manage.py runserver
+- python manage.py makemigrations
+- python manage.py migrate
