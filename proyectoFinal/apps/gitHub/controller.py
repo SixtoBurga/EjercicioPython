@@ -2,6 +2,7 @@
 from apps.gitHub.models import Repository
 from datetime import datetime
 import requests
+import pytz
 
 class RepositoryController():
     def insert(idGitHub,name,description,url,created_at,updated_at,pushed_at):
@@ -23,6 +24,7 @@ class RepositoryController():
         repo.url = url
         repo.updated_at = datetime.strptime(updated_at, date_format)
         repo.pushed_at = datetime.strptime(pushed_at, date_format)
+        repo.sync_date  =datetime.now()
         repo.save()
 
     def validate(idGitHub,updated_at,pushed_at):
@@ -34,11 +36,12 @@ class RepositoryController():
         id=0
         repo = Repository.objects.filter(idGitHub=int(idGitHub))
         if repo:
-            mod_updated_at=datetime.strptime(updated_at, date_format)
+            mod_updated_at = pytz.utc.localize(datetime.strptime(updated_at, date_format))
+
             print(mod_updated_at)
             print(repo[0].updated_at)
 
-            if mod_updated_at!=repo[0].updated_at:
+            if mod_updated_at>repo[0].updated_at:
                 res=2
                 id=repo[0].id
             else:
@@ -61,20 +64,11 @@ class RepositoryController():
                 updated_at= obj['updated_at']
                 pushed_at= obj['pushed_at']
 
-                print('idGitHub')
-                print(idGitHub)
-
-               
                 resultValidate, id=RepositoryController.validate(idGitHub,updated_at,pushed_at)
-                print(resultValidate)
 
                 if resultValidate > 0:
-                    print('ya existe')
                     if resultValidate==2: # Existe y si hubo cambios
-                        print('update')
-                        print(id)
                         RepositoryController.update(id,name,description,url,updated_at,pushed_at)
                 else:
-                    print('nuevo')
-                    RepositoryController.insert(idGitHub,"demo",description,url,created_at,updated_at,pushed_at)
+                    RepositoryController.insert(idGitHub,name,description,url,created_at,updated_at,pushed_at)
                 break
