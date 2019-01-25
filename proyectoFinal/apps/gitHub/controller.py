@@ -48,8 +48,9 @@ class RepositoryController():
                 res=1
         return res,id
 
-    def sync(self):
-        r = requests.get('https://api.github.com/orgs/githubtraining/repos', headers={'Authorization': 'token 5dc2849f045ffe8d47769ff825db547ed3c261b5'})
+    def sync(self,p_uri,p_token):
+        #r = requests.get('https://api.github.com/orgs/githubtraining/repos', headers={'Authorization': 'token 5dc2849f045ffe8d47769ff825db547ed3c261b5'})
+        r = requests.get(p_uri, headers={'Authorization': 'token '+p_token})
         data = r.json()
 
         if 'message' in data:
@@ -71,4 +72,14 @@ class RepositoryController():
                         RepositoryController.update(id,name,description,url,updated_at,pushed_at)
                 else:
                     RepositoryController.insert(idGitHub,name,description,url,created_at,updated_at,pushed_at)
-                break
+                
+
+    def getList(self,name):
+        if name:
+            repos = Repository.objects.filter(name=name)
+        else:
+            repos = Repository.objects.all()
+        print('lista................................')
+        print(repos)
+        context = {'repos': repos}
+        return context
