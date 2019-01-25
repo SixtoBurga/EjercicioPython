@@ -3,25 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-    <title> DJANGO TEST </title>
+    <title> Area 51 - Proyecto: Sixto Burga</title>
 </head>
 
 <body>
     <div>
+        Filtro
+        <form action="" method="POST">{% csrf_token %}
+            <p>Filtrar por nombre: <input type= "text" name="name" value="{{name}}"></p>
+            <input type="submit" value="Filtrar">
+        </form>
+        <form action="sync" method="GET">{% csrf_token %}
+                <input type="submit" value="Sincronizar">
+            </form>
+        <br>
         <table>
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Id</th>
-                    <th>Name</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Url</th>
+                    <th>Fecha de creación</th>
+                    <th>Ultimo commit</th>
                 </tr>
             </thead>
             <tbody>
             {% for repo in repos %}
                 <tr>
                     <th> {{ forloop.counter }} </th>
-                    <td> {{ repo.id }} </td>
                     <td> {{ repo.name }} </td>
+                    <td> {{ repo.description }} </td>
+                    <td> {{ repo.url }} </td>
+                    <td> {{ repo.created_at }} </td>
+                    <td> {{ repo.pushed_at }} </td>
                 </tr>
             {% endfor %}
             </tbody>

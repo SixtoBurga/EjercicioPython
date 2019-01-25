@@ -74,11 +74,9 @@ class RepositoryController():
                 
 
     def getList(self,name):
+        print(name)
         if name:
             repos = Repository.objects.filter(name=name)
         else:
             repos = Repository.objects.all()
-        print('lista................................')
-        print(repos)
-        context = {'repos': repos}
-        return context
+        return repos
