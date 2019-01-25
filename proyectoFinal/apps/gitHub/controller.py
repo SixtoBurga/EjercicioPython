@@ -48,8 +48,7 @@ class RepositoryController():
                 res=1
         return res,id
 
-    def sync(self,p_uri,p_token):
-        #r = requests.get('https://api.github.com/orgs/githubtraining/repos', headers={'Authorization': 'token 5dc2849f045ffe8d47769ff825db547ed3c261b5'})
+    def sync(self, p_uri,p_token):
         r = requests.get(p_uri, headers={'Authorization': 'token '+p_token})
         data = r.json()
 
