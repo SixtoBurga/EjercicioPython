@@ -37,10 +37,6 @@ class RepositoryController():
         repo = Repository.objects.filter(idGitHub=int(idGitHub))
         if repo:
             mod_updated_at = pytz.utc.localize(datetime.strptime(updated_at, date_format))
-
-            print(mod_updated_at)
-            print(repo[0].updated_at)
-
             if mod_updated_at>repo[0].updated_at:
                 res=2
                 id=repo[0].id
@@ -54,6 +50,7 @@ class RepositoryController():
 
         if 'message' in data:
             print('Error API')
+            return 0
         else:
             for obj in data:
                 name= obj['name']
@@ -71,12 +68,11 @@ class RepositoryController():
                         RepositoryController.update(id,name,description,url,updated_at,pushed_at)
                 else:
                     RepositoryController.insert(idGitHub,name,description,url,created_at,updated_at,pushed_at)
-                
+            return 1    
 
     def getList(self,name):
-        print(name)
         if name:
-            repos = Repository.objects.filter(name=name)
+            repos = Repository.objects.filter(name__icontains=name)
         else:
             repos = Repository.objects.all()
         return repos

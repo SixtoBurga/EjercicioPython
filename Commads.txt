@@ -38,7 +38,7 @@ pip install requests
 
 
 ---------------------------------------------------------------
-Dayli commands
+Daily commands
 
 - call envBasico\Scripts\activate.bat
 - cd proyectoFinal

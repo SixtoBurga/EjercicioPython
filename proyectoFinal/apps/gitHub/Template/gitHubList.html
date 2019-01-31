@@ -8,14 +8,14 @@
 
 <body>
     <div>
-        Filtro
         <form action="" method="POST">{% csrf_token %}
-            <p>Filtrar por nombre: <input type= "text" name="name" value="{{name}}"></p>
-            <input type="submit" value="Filtrar">
+            <p>Filtrar por nombre: <input type= "text" name="name" value="{{name}}">
+            <input type="submit" value="Filtrar"></p>
         </form>
         <form action="sync" method="GET">{% csrf_token %}
-                <input type="submit" value="Sincronizar">
-            </form>
+            <input type="submit" value="Sincronizar">
+        </form>
+
         <br>
         <table>
             <thead>
