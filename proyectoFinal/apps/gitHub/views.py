@@ -8,15 +8,16 @@ from apps.gitHub.controller import RepositoryController
 class inicio(TemplateView):
 
     def get(self, request, *args, **kwargs):
-        repos=RepositoryController.getList(self,name="")
-
+        repos=RepositoryController.getList(self,name="",order='1')
         return render(request, 'gitHubList.html', {'name':'','repos':repos})
     
     def post(self, request, *args, **kwargs):
         name = request.POST.get('name', '')
-        repos = RepositoryController.getList(self,name=name)
-
-        return render(request, 'gitHubList.html', {'name':name,'repos':repos})
+        order = request.POST.get('ordenar', '')
+        repos = RepositoryController.getList(self,name=name,order=order)
+        print('---------------------------------------------')
+        print(order)
+        return render(request, 'gitHubList.html', {'name':name,'repos':repos, 'ordenarSel':order})
 
 def sync(request,*args):
     repo=RepositoryController()

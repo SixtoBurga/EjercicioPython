@@ -56,7 +56,7 @@ class RepositoryController():
                 name= obj['name']
                 idGitHub=obj['id']
                 description= obj['description']
-                url= obj['url']
+                url= obj['html_url']
                 created_at= obj['created_at']
                 updated_at= obj['updated_at']
                 pushed_at= obj['pushed_at']
@@ -70,9 +70,17 @@ class RepositoryController():
                     RepositoryController.insert(idGitHub,name,description,url,created_at,updated_at,pushed_at)
             return 1    
 
-    def getList(self,name):
+    def getList(self,name,order):
+        print('order:'+order)
         if name:
-            repos = Repository.objects.filter(name__icontains=name)
+            if order=='0':
+                repos = Repository.objects.filter(name__icontains=name).order_by('-created_at')
+            else:
+                repos = Repository.objects.filter(name__icontains=name).order_by('created_at')
         else:
-            repos = Repository.objects.all()
+            if order=='0':
+                repos = Repository.objects.order_by('-created_at')
+            else:
+                repos = Repository.objects.order_by('created_at')
         return repos
+

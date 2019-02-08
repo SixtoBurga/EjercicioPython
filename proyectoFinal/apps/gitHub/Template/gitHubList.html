@@ -1,47 +1,70 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Area 51 - Proyecto: Sixto Burga</title>
-</head>
-
-<body>
-    <div>
-        <form action="" method="POST">{% csrf_token %}
-            <p>Filtrar por nombre: <input type= "text" name="name" value="{{name}}">
-            <input type="submit" value="Filtrar"></p>
+    <!-- Bootstrap --><!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1> Area 51 - Curso Python: Proyecto de Sixto Burga</h1>
+   
+    <form action="" method="POST" class="navbar-form navbar-left" >{% csrf_token %}
+        <div class="form-group"></div>    
+        <p>Filtrar por nombre: 
+            <input type="text" name="name" value="{{name}}" class="form-control"/>
+            <input type="submit" value="Filtrar" class="btn btn-default">
+        </p>
+        <p> Ordenar por fecha de creación: 
+            <select name="ordenar" class="form-control">
+                <option value="1" {% if ordenarSel == '1' %}selected{%endif%}>Ascendente</option>
+                <option value="0" {% if ordenarSel == '0' %}selected{%endif%}>Descendente</option>
+            </select>
+            <input type="submit" value="ordenar"  class="btn btn-default">
+        </p>
         </form>
-        <form action="sync" method="GET">{% csrf_token %}
-            <input type="submit" value="Sincronizar">
-        </form>
 
+        <form action="sync" method="GET" class="navbar-form navbar-left" >{% csrf_token %}
+            <p> Sincronizar datos desde GitHub 
+                <input type="submit" value="Sincronizar"  class="btn btn-success">
+            </p>
+        </form>
+        
         <br>
-        <table>
-            <thead>
+        <table class="table table-striped">
+                <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Url</th>
-                    <th>Fecha de creación</th>
-                    <th>Ultimo commit</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Url</th>
+                    <th scope="col">Fecha de creación</th>
+                    <th scope="col">Ultimo commit</th>
                 </tr>
-            </thead>
-            <tbody>
-            {% for repo in repos %}
-                <tr>
-                    <th> {{ forloop.counter }} </th>
-                    <td> {{ repo.name }} </td>
-                    <td> {{ repo.description }} </td>
-                    <td> {{ repo.url }} </td>
-                    <td> {{ repo.created_at }} </td>
-                    <td> {{ repo.pushed_at }} </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
+                </thead>
+                <tbody>
+                    {% for repo in repos %}
+                    <tr>
+                        <th scope="row"> {{ forloop.counter }} </th>
+                        <td> {{ repo.name }} </td>
+                        <td> {{ repo.description }} </td>
+                        <td> <a href="{{ repo.url }}" target="_blank" >{{ repo.url }} </a></td>
+                        <td> {{ repo.created_at }} </td>
+                        <td> {{ repo.pushed_at }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

@@ -6,5 +6,5 @@ from apps.gitHub.views import sync
 
 urlpatterns = [
     url(r'^$', inicio.as_view()),
-    url(r'^sync/$', sync)
+    url(r'^sync/$', sync),
 ]
